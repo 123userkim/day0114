@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+	
+ 
+	
+	$(function(){
+		let span_list = $("span");
+		$("button").click(function(){
+			let data = {bookid:$("#bookid").val()};
+			$.ajax({
+				url:"getBook_xml.jsp",
+				data:data,
+				success:function(data){
+					let bookname = $(data).find("bookname").text();
+					let publisher = $(data).find("publisher").text();
+					let price = $(data).find("price").text();
+					$(span_list[0]).html(bookname);
+					$(span_list[1]).html(publisher);
+					$(span_list[2]).html(price);
+				}
+			})
+		});
+	});
+</script>
+</head>
+<body>
+	도서명 : <span ></span><br>
+	출판사 : <span ></span><br>
+	가격 : <span ></span><br>
+	<hr>
+	도서번호 : <input type="text" id="bookid">  <button>도서정보 읽어오기</button>
+</body>
+</html>
+

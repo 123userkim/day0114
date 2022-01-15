@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$("button").click(function(){
+			$("tbody").empty();
+			let publisher = $("#publisher").val();
+			let data = {publisher:publisher};
+			$.ajax({
+				//url:"listBookByPublisher_json.jsp",
+				url:"listBookByPublisher_json_gson.jsp",
+				data:data,
+				success:function(arr){
+					$.each(arr, function(){
+						console.log(this);
+						console.log("-----------------------------")
+						let td1 = $("<td></td>").html(this.bookid );
+						let td2 = $("<td></td>").html(this.bookname );
+						let td3 = $("<td></td>").html(this.publisher );
+						let td4 = $("<td></td>").html(this.price );
+						let tr = $("<tr></tr").append(td1,td2,td3,td4);
+						$("tbody").append(tr);
+					});
+				}
+			})
+		});
+	});
+</script>
+</head>
+<body>
+	
+	출판사명 : <input type="text" id="publisher">
+	<button>확인</button>
+	 <hr>
+	 <table border="1">
+	 	<thead>
+	 	<tr>
+	 		<th>도서번호</th>
+	 		<th>도서명</th>
+	 		<th>출판사</th>
+	 		<th>가격</th>
+	 	</tr>
+	 	</thead>
+	 	<tbody></tbody>
+	 </table>
+	 
+	 
+</body>
+</html>
